@@ -1,0 +1,5 @@
+// config
+// sass提供的引入方式，带下划线的定义表示，只提供模块化的引入，并不可以编译成scss，引入去掉下划线
+@import "variables";
+// layout
+@import "reboot";
