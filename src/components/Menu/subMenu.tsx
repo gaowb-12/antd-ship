@@ -47,7 +47,7 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
     // 渲染MenuItem子组件，判断传入其他组件时的逻辑
     const renderChildren = () =>{
         const subMenuClasses = classNames('antd-submenu', {
-            'menu-opened':menuOpen
+            'menu-opened': menuOpen
         });
         const element = React.Children.map(children, (child, i) => {
             // 类型断言，因为child默认是ReactNode类型，只能是FunctionComponentElement类型
@@ -78,10 +78,6 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
         </div>
         {renderChildren()}
     </li>
-}
-// 设置默认属性
-SubMenu.defaultProps = {
-    index: '0',
 }
 // 给当前组件起名字
 SubMenu.displayName = "subMenu";

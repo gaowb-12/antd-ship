@@ -16,7 +16,7 @@ function App() {
         >
           Learn React
         </a>
-        <Menu defaultIndex='0' mode='vertical' defaultOpenSubMenus={["1"]} onSelect={(s)=>console.log(s)}>
+        <Menu defaultIndex='0'  mode="horizontal" defaultOpenSubMenus={["1"]} onSelect={(s)=>console.log(s)}>
           <MenuItem>
             cool Link
           </MenuItem>

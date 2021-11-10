@@ -7,6 +7,7 @@ import SubMenu from "./subMenu"
 const testProps:MenuProps = {
     defaultIndex: "0",
     className: "test",
+    mode: "horizontal",
     onSelect: jest.fn()
 }
 const testVerticalProps:MenuProps = {
@@ -92,15 +93,19 @@ describe('test Menu and MenuItem component', () => {
     });
 
     // subItem测试用例
-    it("should show dropdown items when hover on SubMenu", async () =>{
+    test("should show dropdown items when hover on SubMenu", async () =>{
         expect(wrapper.queryByText("drop1")).not.toBeVisible();
         const dropdownElement = wrapper.getByText("dropdown");
+        expect(dropdownElement).toHaveClass("submenu-title");
+
         fireEvent.mouseEnter(dropdownElement);
         await waitFor(()=>{
             expect(wrapper.queryByText("drop1")).toBeVisible();
         });
+
         fireEvent.click(wrapper.getByText("drop1"));
         expect(testProps.onSelect).toHaveBeenCalledWith("3-0");
+
         fireEvent.mouseLeave(dropdownElement);
         await waitFor(()=>{
             expect(wrapper.queryByText("drop1")).not.toBeVisible();
