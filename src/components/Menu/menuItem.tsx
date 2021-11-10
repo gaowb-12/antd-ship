@@ -2,12 +2,9 @@ import React, { useContext } from "react";
 import classNames from "classnames";
 import { MenuContext } from "./menu";
 
-// 字符串字面量代替枚举类型
-type MenuMode = "horizontal" | "vertical";
-
 // 定义menu的属性
 export interface MenuItemProps {
-    index: number;
+    index?: string;
     className?: string;
     disabled?: boolean;
     style?: React.CSSProperties;
@@ -22,7 +19,7 @@ const MenuItem: React.FC<MenuItemProps> = (props) => {
         'is-active': consumerContext.index === index
     });
     const handleClick = () => {
-        consumerContext.onSelect && !disabled && consumerContext.onSelect(index);
+        consumerContext.onSelect && !disabled && typeof index === "string"&& consumerContext.onSelect(index);
     }
     return <li
         className={classes}
@@ -32,8 +29,11 @@ const MenuItem: React.FC<MenuItemProps> = (props) => {
         {children}
     </li>
 }
+// 设置默认属性
 MenuItem.defaultProps = {
-    index: 0,
+    index: '0',
 }
+// 给当前组件起名字
+MenuItem.displayName = "MenuItem";
 
 export default MenuItem;

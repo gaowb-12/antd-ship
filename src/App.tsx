@@ -2,6 +2,7 @@ import React from 'react';
 import Button, { ButtonType, ButtonSize} from "./components/Button/button";
 import Menu, { MenuProps} from "./components/Menu/menu";
 import MenuItem, { MenuItemProps } from "./components/Menu/menuItem";
+import SubMenu from "./components/Menu/subMenu";
 
 function App() {
   return (
@@ -15,17 +16,20 @@ function App() {
         >
           Learn React
         </a>
-        <Button disabled>Hello</Button>
-        <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>Hello</Button>
-        <Button btnType={ButtonType.Danger} size={ButtonSize.Large}>Hello</Button>
-        <Button btnType={ButtonType.Link} size={ButtonSize.Small} href="http://www.baidu.com" target="_blank">Hello</Button>
-
-        <Menu defaultIndex={0} onSelect={(index)=>{alert(index)}}>
-          <MenuItem index={0}>
+        <Menu defaultIndex='0' mode='vertical' defaultOpenSubMenus={["1"]} onSelect={(s)=>console.log(s)}>
+          <MenuItem>
             cool Link
           </MenuItem>
-          <MenuItem index={1} disabled>
-            cool Link1
+          <SubMenu title="test">
+            <MenuItem>
+              SubMenu cool Link1
+            </MenuItem>
+            <MenuItem>
+              SubMenu cool Link2
+            </MenuItem>
+          </SubMenu>
+          <MenuItem disabled>
+            cool Link2
           </MenuItem>
         </Menu>
       </header>
