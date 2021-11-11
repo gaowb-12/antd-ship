@@ -2,6 +2,8 @@ import React, { useContext, useState, FunctionComponentElement } from "react";
 import classNames from "classnames";
 import { MenuContext } from "./menu";
 import { MenuItemProps } from "./menuItem";
+import  Icon from '../Icon/icon'
+import Transition from "../Transition/transition"
 
 // 定义menu的属性
 export interface SubMenuProps {
@@ -20,7 +22,9 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
     const [ menuOpen, setOpen] = useState(isOpened);
     // 添加class
     const classes = classNames("menu-item submenu-item", className, {
-        'is-active': consumerContext.index === index
+        'is-active': consumerContext.index === index,
+        'is-opened': menuOpen,
+        'is-vertical': consumerContext.mode === 'vertical'
     });
 
     // 横向菜单鼠标经过事件，竖向菜单点击事件
@@ -63,9 +67,17 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
             else
                 console.error("warning：Not MenuItem！");
         });
-        return <ul className={subMenuClasses}>
-            {element}
-        </ul>
+        return (
+                <Transition
+                in={menuOpen}
+                timeout={300}
+                animation="zoom-in-top"
+                >
+                    <ul className={subMenuClasses}>
+                        {element}
+                    </ul>
+                </Transition>
+            )
     }
     return <li
         key={index}
@@ -75,6 +87,7 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
     >
         <div className="submenu-title" {...clickEvents}>
             {title}
+            <Icon icon='angle-down' className="arrow-icon" />
         </div>
         {renderChildren()}
     </li>

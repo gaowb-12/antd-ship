@@ -96,7 +96,6 @@ describe('test Menu and MenuItem component', () => {
     test("should show dropdown items when hover on SubMenu", async () =>{
         expect(wrapper.queryByText("drop1")).not.toBeVisible();
         const dropdownElement = wrapper.getByText("dropdown");
-        expect(dropdownElement).toHaveClass("submenu-title");
 
         fireEvent.mouseEnter(dropdownElement);
         await waitFor(()=>{
