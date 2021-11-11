@@ -4,10 +4,14 @@ import Menu, { MenuProps} from "./components/Menu/menu";
 import MenuItem, { MenuItemProps } from "./components/Menu/menuItem";
 import SubMenu from "./components/Menu/subMenu";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+
 function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <FontAwesomeIcon icon={faCoffee} />
         <a
           className="App-link"
           href="https://reactjs.org"
