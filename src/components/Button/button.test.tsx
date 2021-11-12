@@ -1,18 +1,18 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import Button, { ButtonSize, ButtonType, ButtonProps} from "./button"
+import Button, { ButtonProps} from "./button"
 
 // 模拟点击
 const defaultProps = {
     onClick:jest.fn()
 }
 const testProps:ButtonProps = {
-    btnType: ButtonType.Primary,
-    size: ButtonSize.Large,
+    btnType: "primary",
+    size: 'lg',
     className:"klass"
 };
 const aLinkProps:ButtonProps = {
-    btnType: ButtonType.Link,
+    btnType: 'link',
     href:"http://www.baidu.com"
 };
 const disabledProps:ButtonProps = {

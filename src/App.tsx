@@ -1,10 +1,8 @@
 import React from 'react';
-import Button, { ButtonType, ButtonSize} from "./components/Button/button";
-import Menu, { MenuProps} from "./components/Menu/menu";
-import MenuItem, { MenuItemProps } from "./components/Menu/menuItem";
+import Menu from "./components/Menu/menu";
+import MenuItem from "./components/Menu/menuItem";
 import SubMenu from "./components/Menu/subMenu";
 
-import  Icon from './components/Icon/icon'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 library.add(fas);
