@@ -8,3 +8,10 @@ export const parameters = {
     },
   },
 }
+export const decorators = [
+  (Story) => (
+    <div style={{ textAlign: 'center' }}>
+      <Story/>
+    </div>
+  ),
+]
