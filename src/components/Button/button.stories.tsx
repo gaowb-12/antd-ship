@@ -1,32 +1,17 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Button, {} from './button';
+import { Button } from './button';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 // 默认导出用来描述组件
 export default {
-  title: 'Components/Button',
+  title: 'components/Button',
   component: Button,
-  // decorators: [
-  //   (Story) => (
-  //     <div style={{ textAlign: 'center' }}>
-  //       <Story/>
-  //     </div>
-  //   ),
-  // ],
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    size: {
-      options: ['sm', 'lg'],
-      control: { type: 'select' }
-    },
-    btnType: {
-      options: ['primary','default','danger','link'],
-      control: { type: 'select' }
-    },
-    disabled: { control:"boolean" },
-    onClick: { action: 'clicked' }
+    // backgroundColor: { control: 'color' },
+    onClick: { action: 'clicked' },
   },
 } as ComponentMeta<typeof Button>;
 
@@ -34,9 +19,8 @@ export default {
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 // export导出用来描述stories
-
 export const Default = Template.bind({});
-Default.storyName = "默认Button"
+Default.storyName = "Button"
 Default.args = {
   disabled:false,
   children: 'Button',

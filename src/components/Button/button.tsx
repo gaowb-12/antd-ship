@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import classNames from 'classnames';
 
 // button组件的按钮类型
@@ -6,12 +6,18 @@ export type ButtonSize = 'lg'|'sm';
 export type ButtonType = 'primary'|'default'|'danger'|'link';
 // button组件的参数属性
 interface BaseButtonProps {
+    /** 设置Button的类名 */
     className?: string;
+    /** 设置Button的禁用 */
     disabled?: boolean;
+    /** 设置Button的尺寸 */
     size?: ButtonSize;
+    /** 设置Button的类型 */
     btnType?: ButtonType;
+    /** 设置Button的子节点 */
     children: React.ReactNode;
-    href?:string
+    /** a链接Button */
+    href?:string;
 }
 // 继承button按钮原生的一些属性，结合交叉类型添加新属性
 type NativeButtonProps = React.ButtonHTMLAttributes<HTMLElement> & BaseButtonProps;
@@ -20,7 +26,10 @@ type AnchorButtonProps = React.AnchorHTMLAttributes<HTMLElement> & BaseButtonPro
 // 交叉两种类型,Partial：ts内部的类型，可以将所有的属性变成可选的
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>;
 
-const Button:React.FC<ButtonProps> = (props)=>{
+/**
+ * Button组件
+*/
+export const Button: React.FC<ButtonProps> = (props)=>{
     const {
         btnType,
         size,

@@ -1,4 +1,8 @@
 import "../src/styles/index.scss"
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
+library.add(fas);
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
@@ -7,11 +11,11 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  docs: {
+    // opt-out of inline rendering
+    inlineStories: true,
+  },
 }
 export const decorators = [
-  (Story) => (
-    <div style={{ textAlign: 'center' }}>
-      <Story/>
-    </div>
-  ),
+  
 ]
