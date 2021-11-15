@@ -25,28 +25,31 @@ Default.storyName = "默认Input"
 Default.args = {
     
 };
-
+interface GitHubUserProps{
+    login:string;
+    url:string;
+    avatar_url:string;
+}
 export const AutoCompleteSelect: ComponentStory<typeof AutoComplete> = (args) => {
-    const lakers = [
-        { value:'caruso', number:10 },
-        { value:'cook', number:10 },
-        { value:'green', number:10 },
-        { value:'AD', number:10 },
-        { value:'james', number:10 },
-        { value:'howard', number:10 },
-        { value:'kuzma', number:10 },
-        { value:'rando', number:10 }
-    ];
     const filters = (query: string) => {
-        return lakers.filter(item=>{
-            return item.value.includes(query);
-        });
+        return  fetch(`https://api.github.com/search/users?q=${query}`)
+                .then(res =>{
+                    return res.json();
+                })
+                .then(({items}) => {
+                    return items.slice(0,10).map((item:any) => {
+                        return {value:item.login, ...item}
+                    })
+                })
     }
-    const renderOptions = (item:DataSourceType): React.ReactElement =>{
-        return <h2>Name: {item. value}</h2>
+    const renderOptions = (item: DataSourceType<GitHubUserProps>): React.ReactElement =>{
+        return <>
+            <h2>login: {item.value}</h2>
+            <p>url: {item.url}</p>
+        </>
     }
     return <AutoComplete 
-            defaultValue="aaa"
+            defaultValue=""
             fetchSuggestions={filters} 
             onSelect={item=>console.log(item)}
             renderOptions={renderOptions}
