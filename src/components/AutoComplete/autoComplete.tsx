@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import Input, { InputProps } from "../Input/input";
 import Icon from "../Icon/icon";
+import useDebounce from "../../hooks/useDebounce"
+import useClickOutside from "../../hooks/useClickOutside"
 
 // 定义数据类型
 interface DataSourceObject{
@@ -12,7 +14,7 @@ export type DataSourceType<T = {}> = (DataSourceObject & T);
 interface AutoCompleteProps extends Omit<InputProps,'onSelect'>{
     fetchSuggestions: (keyword:string) => DataSourceType[] | Promise<DataSourceType[]>;
     onSelect ?: (item: DataSourceType)=> void;
-    renderOptions?: <T>(item: DataSourceType<T>)=> React.ReactElement;
+    renderOptions?: (item: DataSourceType | any)=> React.ReactElement;
 }
 
 export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
@@ -24,15 +26,20 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
         ...restProps
     } = props;
     
-    const [inputValue, setInputValue] = useState(value);
+    const [inputValue, setInputValue] = useState(value as string);
     const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
     const [loading, setLoading] = useState(false);
+    const triggerSearch = useRef(false);
+    const comRef = useRef<HTMLDivElement>(null);
+    useClickOutside(comRef, ()=>{
+        setSuggestions([])
+    });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value.trim()
-        setInputValue(value);
-        if(value){
-            const result = fetchSuggestions(value);
+    // 处理函数防抖
+    const debouncedValue = useDebounce(inputValue);
+    useEffect(() => {
+        if(debouncedValue && triggerSearch.current){
+            const result = fetchSuggestions(debouncedValue);
             setLoading(true)
             if(result instanceof Promise)
                 result.then(r => {
@@ -43,12 +50,20 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
         }else{
             setSuggestions([])
         }
+    }, [debouncedValue]);
+    
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value.trim()
+        setInputValue(value);
+        triggerSearch.current = true
     }
 
     const handleClick = (item: DataSourceType) => {
         setInputValue(item.value);
         setSuggestions([]);
         if(onSelect) onSelect(item);
+        triggerSearch.current = false;
     }
     const renderTemplate = (item: DataSourceType) =>{
         return renderOptions ? renderOptions(item) : item.value;
@@ -61,7 +76,7 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
         </ul>
     }
 
-    return <div className="antd-auto-complete">
+    return <div className="antd-auto-complete" ref={comRef}>
         <Input 
         value={inputValue} 
         {...restProps}

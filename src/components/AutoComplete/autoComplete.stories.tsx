@@ -20,11 +20,6 @@ export default {
 const Template: ComponentStory<typeof AutoComplete> = (args) => <AutoComplete {...args} />;
 
 // export导出用来描述stories
-export const Default = Template.bind({});
-Default.storyName = "默认Input"
-Default.args = {
-    
-};
 interface GitHubUserProps{
     login:string;
     url:string;
@@ -38,18 +33,17 @@ export const AutoCompleteSelect: ComponentStory<typeof AutoComplete> = (args) =>
                 })
                 .then(({items}) => {
                     return items.slice(0,10).map((item:any) => {
-                        return {value:item.login, ...item}
+                        return { value:item.login, ...item }
                     })
                 })
     }
-    const renderOptions = (item: DataSourceType<GitHubUserProps>): React.ReactElement =>{
+    const renderOptions = (item: DataSourceType<GitHubUserProps>): React.ReactElement => {
         return <>
             <h2>login: {item.value}</h2>
             <p>url: {item.url}</p>
         </>
     }
     return <AutoComplete 
-            defaultValue=""
             fetchSuggestions={filters} 
             onSelect={item=>console.log(item)}
             renderOptions={renderOptions}
