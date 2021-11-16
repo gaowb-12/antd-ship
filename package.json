@@ -1,7 +1,30 @@
 {
   "name": "antd-ship",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": false,
+  "description": "React components liberary",
+  "author": "gaowb",
+  "license": "MIT",
+  "keywords": [
+    "Component",
+    "UI",
+    "React"
+  ],
+  "homepage": "https://gitee.com/gaowb/antd-ship",
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/gaowb/antd-ship"
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
@@ -9,6 +32,18 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.24.0",
+    "classnames": "^2.3.1",
+    "react-transition-group": "^4.4.2",
+    "web-vitals": "^1.0.1"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.3.12",
+    "@storybook/addon-essentials": "^6.3.12",
+    "@storybook/addon-links": "^6.3.12",
+    "@storybook/addons": "^6.3.12",
+    "@storybook/preset-create-react-app": "^3.2.0",
+    "@storybook/react": "^6.3.12",
     "@types/classnames": "^2.3.1",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
@@ -16,24 +51,29 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-transition-group": "^4.4.4",
     "@types/storybook__addon-info": "^5.2.4",
-    "axios": "^0.24.0",
     "babel-loader": "^8.1.0",
-    "classnames": "^2.3.1",
+    "cross-env": "^7.0.3",
+    "husky": "^7.0.4",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "4.0.3",
-    "react-transition-group": "^4.4.2",
-    "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "rimraf": "^3.0.2",
+    "typescript": "^4.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "clean": "rimraf ./dist",
+    "lint": "eslint --ext js,ts,tsx src --max-warnings 5",
+    "build": "npm run clean && npm run build-ts && npm run build-css",
     "test": "react-scripts test",
+    "test:nowatch": "cross-env CI=true react-scripts test",
     "eject": "react-scripts eject",
+    "build-ts": "tsc -p tsconfig.build.json",
+    "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "prepare": "npm run lint && npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -52,13 +92,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@storybook/addon-actions": "^6.3.12",
-    "@storybook/addon-essentials": "^6.3.12",
-    "@storybook/addon-links": "^6.3.12",
-    "@storybook/addons": "^6.3.12",
-    "@storybook/preset-create-react-app": "^3.2.0",
-    "@storybook/react": "^6.3.12"
   }
 }
