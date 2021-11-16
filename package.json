@@ -51,7 +51,6 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-transition-group": "^4.4.4",
     "@types/storybook__addon-info": "^5.2.4",
-    "babel-loader": "^8.1.0",
     "cross-env": "^7.0.3",
     "husky": "^7.0.4",
     "node-sass": "^4.14.1",
@@ -64,7 +63,7 @@
   "scripts": {
     "start": "react-scripts start",
     "clean": "rimraf ./dist",
-    "lint": "eslint --ext js,ts,tsx src --max-warnings 5",
+    "lint": "eslint --ext js,ts,tsx src --max-warnings 20",
     "build": "npm run clean && npm run build-ts && npm run build-css",
     "test": "react-scripts test",
     "test:nowatch": "cross-env CI=true react-scripts test",
