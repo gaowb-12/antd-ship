@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 const Welcome: React.FC = ()=>{
     return <div>
-    <h1>Replacing DocsPage with a custom component</h1>
+        <h1>Welcome</h1>
         <p>
             欢迎来到antd-ship组件库
         </p>
