@@ -65,7 +65,7 @@
     "clean": "rimraf ./dist",
     "lint": "eslint --ext js,ts,tsx src --max-warnings 20",
     "build": "npm run clean && npm run build-ts && npm run build-css",
-    "test": "react-scripts test",
+    "test": "npm run lint",
     "test:nowatch": "cross-env CI=true react-scripts test",
     "eject": "react-scripts eject",
     "build-ts": "tsc -p tsconfig.build.json",
